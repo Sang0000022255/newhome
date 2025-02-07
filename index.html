@@ -34,8 +34,17 @@
             let year = birthDate.getFullYear();
             let zodiac = getZodiac(birthDate);
             let lunarYear = getLunarYear(year);
+            let element = getElement(year);
+            let luckyNumber = getLuckyNumber(year);
+            let personality = getPersonality(zodiac);
             
-            document.getElementById("result").innerText = `Bạn thuộc cung ${zodiac} và tuổi âm lịch là ${lunarYear}.`;
+            document.getElementById("result").innerHTML = `
+                <p>Bạn thuộc cung: <b>${zodiac}</b></p>
+                <p>Tuổi âm lịch: <b>${lunarYear}</b></p>
+                <p>Ngũ hành: <b>${element}</b></p>
+                <p>Số may mắn: <b>${luckyNumber}</b></p>
+                <p>Tính cách đặc trưng: <b>${personality}</b></p>
+            `;
         }
         
         function getZodiac(date) {
@@ -56,6 +65,33 @@
             const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
             const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
             return `${can[year % 10]} ${chi[year % 12]}`;
+        }
+        
+        function getElement(year) {
+            const elements = ["Kim", "Thủy", "Hỏa", "Thổ", "Mộc"];
+            return elements[Math.floor((year % 10) / 2)];
+        }
+        
+        function getLuckyNumber(year) {
+            return (year % 9) + 1;
+        }
+        
+        function getPersonality(zodiac) {
+            const personalities = {
+                "Ma Kết": "Chăm chỉ, kiên nhẫn, thực tế",
+                "Bảo Bình": "Sáng tạo, độc lập, thông minh",
+                "Song Ngư": "Nhạy cảm, giàu cảm xúc, lãng mạn",
+                "Bạch Dương": "Nhiệt huyết, dũng cảm, mạnh mẽ",
+                "Kim Ngưu": "Ổn định, đáng tin cậy, kiên nhẫn",
+                "Song Tử": "Linh hoạt, thông minh, hoạt bát",
+                "Cự Giải": "Tình cảm, chu đáo, nhạy bén",
+                "Sư Tử": "Tự tin, hào phóng, sáng tạo",
+                "Xử Nữ": "Tỉ mỉ, cầu toàn, tận tâm",
+                "Thiên Bình": "Công bằng, quyến rũ, hòa nhã",
+                "Bọ Cạp": "Sâu sắc, bí ẩn, mạnh mẽ",
+                "Nhân Mã": "Phiêu lưu, vui vẻ, rộng lượng"
+            };
+            return personalities[zodiac] || "Không xác định";
         }
     </script>
 </body>
