@@ -37,6 +37,16 @@
             let element = getElement(year);
             let luckyNumber = getLuckyNumber(year);
             let personality = getPersonality(zodiac);
+            let loveFortune = getLoveFortune(zodiac);
+            let careerFortune = getCareerFortune(zodiac);
+            let healthFortune = getHealthFortune(zodiac);
+            let luckFortune = getLuckFortune(zodiac);
+            let financeFortune = getFinanceFortune(zodiac);
+            let luckyColor = getLuckyColor(element);
+            let suitableCareer = getSuitableCareer(element);
+            let compatibleZodiac = getCompatibleZodiac(zodiac);
+            let goodDays = getGoodDays(zodiac);
+            let monthlyFortune = getMonthlyFortune(zodiac);
             
             document.getElementById("result").innerHTML = `
                 <p>Bạn thuộc cung: <b>${zodiac}</b></p>
@@ -44,54 +54,44 @@
                 <p>Ngũ hành: <b>${element}</b></p>
                 <p>Số may mắn: <b>${luckyNumber}</b></p>
                 <p>Tính cách đặc trưng: <b>${personality}</b></p>
+                <p>Tình duyên: <b>${loveFortune}</b></p>
+                <p>Sự nghiệp: <b>${careerFortune}</b></p>
+                <p>Sức khỏe: <b>${healthFortune}</b></p>
+                <p>Vận hạn: <b>${luckFortune}</b></p>
+                <p>Tài chính: <b>${financeFortune}</b></p>
+                <p>Màu sắc may mắn: <b>${luckyColor}</b></p>
+                <p>Nghề nghiệp phù hợp: <b>${suitableCareer}</b></p>
+                <p>Đối tác hợp tuổi: <b>${compatibleZodiac}</b></p>
+                <p>Ngày tốt trong năm: <b>${goodDays}</b></p>
+                <p>Vận hạn từng tháng: <b>${monthlyFortune}</b></p>
             `;
         }
         
-        function getZodiac(date) {
-            let day = date.getDate();
-            let month = date.getMonth() + 1;
-            const zodiacSigns = [
-                "Ma Kết", "Bảo Bình", "Song Ngư", "Bạch Dương", "Kim Ngưu", "Song Tử",
-                "Cự Giải", "Sư Tử", "Xử Nữ", "Thiên Bình", "Bọ Cạp", "Nhân Mã"
-            ];
-            const zodiacDates = [
-                [20, 19], [19, 20], [20, 20], [20, 21], [21, 21], [21, 20],
-                [20, 22], [22, 22], [22, 23], [23, 23], [23, 22], [22, 21]
-            ];
-            return day < zodiacDates[month - 1][0] ? zodiacSigns[month - 1] : zodiacSigns[month % 12];
+        function getFinanceFortune(zodiac) {
+            return "Tài chính ổn định nhưng cần tiết kiệm và đầu tư hợp lý.";
         }
         
-        function getLunarYear(year) {
-            const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
-            const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
-            return `${can[year % 10]} ${chi[year % 12]}`;
+        function getLuckyColor(element) {
+            const colors = { "Kim": "Trắng, Xám", "Thủy": "Xanh dương, Đen", "Hỏa": "Đỏ, Hồng", "Thổ": "Vàng, Nâu", "Mộc": "Xanh lá" };
+            return colors[element] || "Không xác định";
         }
         
-        function getElement(year) {
-            const elements = ["Kim", "Thủy", "Hỏa", "Thổ", "Mộc"];
-            return elements[Math.floor((year % 10) / 2)];
+        function getSuitableCareer(element) {
+            const careers = { "Kim": "Kinh doanh, kỹ thuật, tài chính", "Thủy": "Giao tiếp, ngoại giao, nghệ thuật", "Hỏa": "Công nghệ, truyền thông, quản lý", "Thổ": "Bất động sản, kiến trúc, xây dựng", "Mộc": "Nông nghiệp, giáo dục, y tế" };
+            return careers[element] || "Không xác định";
         }
         
-        function getLuckyNumber(year) {
-            return (year % 9) + 1;
+        function getCompatibleZodiac(zodiac) {
+            const compatibility = { "Ma Kết": "Kim Ngưu, Xử Nữ", "Bảo Bình": "Song Tử, Thiên Bình", "Song Ngư": "Cự Giải, Bọ Cạp", "Bạch Dương": "Sư Tử, Nhân Mã", "Kim Ngưu": "Xử Nữ, Ma Kết", "Song Tử": "Thiên Bình, Bảo Bình", "Cự Giải": "Bọ Cạp, Song Ngư", "Sư Tử": "Bạch Dương, Nhân Mã", "Xử Nữ": "Kim Ngưu, Ma Kết", "Thiên Bình": "Song Tử, Bảo Bình", "Bọ Cạp": "Cự Giải, Song Ngư", "Nhân Mã": "Bạch Dương, Sư Tử" };
+            return compatibility[zodiac] || "Không xác định";
         }
         
-        function getPersonality(zodiac) {
-            const personalities = {
-                "Ma Kết": "Chăm chỉ, kiên nhẫn, thực tế",
-                "Bảo Bình": "Sáng tạo, độc lập, thông minh",
-                "Song Ngư": "Nhạy cảm, giàu cảm xúc, lãng mạn",
-                "Bạch Dương": "Nhiệt huyết, dũng cảm, mạnh mẽ",
-                "Kim Ngưu": "Ổn định, đáng tin cậy, kiên nhẫn",
-                "Song Tử": "Linh hoạt, thông minh, hoạt bát",
-                "Cự Giải": "Tình cảm, chu đáo, nhạy bén",
-                "Sư Tử": "Tự tin, hào phóng, sáng tạo",
-                "Xử Nữ": "Tỉ mỉ, cầu toàn, tận tâm",
-                "Thiên Bình": "Công bằng, quyến rũ, hòa nhã",
-                "Bọ Cạp": "Sâu sắc, bí ẩn, mạnh mẽ",
-                "Nhân Mã": "Phiêu lưu, vui vẻ, rộng lượng"
-            };
-            return personalities[zodiac] || "Không xác định";
+        function getGoodDays(zodiac) {
+            return "Nên chọn ngày mùng 1, 15, hoặc 25 âm lịch để thực hiện công việc quan trọng.";
+        }
+        
+        function getMonthlyFortune(zodiac) {
+            return "Năm nay sẽ có những thăng trầm, hãy cẩn thận trong tháng 3 và tháng 9.";
         }
     </script>
 </body>
