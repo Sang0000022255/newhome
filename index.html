@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Bói Tuổi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Xem Bói Tuổi</h2>
+    <label>Nhập ngày sinh:</label>
+    <input type="date" id="birthDate">
+    <button onclick="xemBoi()">Xem Bói</button>
+    <h3 id="result"></h3>
+    
+    <script>
+        function xemBoi() {
+            let birthDate = new Date(document.getElementById("birthDate").value);
+            if (isNaN(birthDate)) {
+                document.getElementById("result").innerText = "Vui lòng nhập ngày sinh hợp lệ!";
+                return;
+            }
+            
+            let year = birthDate.getFullYear();
+            let zodiac = getZodiac(birthDate);
+            let lunarYear = getLunarYear(year);
+            
+            document.getElementById("result").innerText = `Bạn thuộc cung ${zodiac} và tuổi âm lịch là ${lunarYear}.`;
+        }
+        
+        function getZodiac(date) {
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            const zodiacSigns = [
+                "Ma Kết", "Bảo Bình", "Song Ngư", "Bạch Dương", "Kim Ngưu", "Song Tử",
+                "Cự Giải", "Sư Tử", "Xử Nữ", "Thiên Bình", "Bọ Cạp", "Nhân Mã"
+            ];
+            const zodiacDates = [
+                [20, 19], [19, 20], [20, 20], [20, 21], [21, 21], [21, 20],
+                [20, 22], [22, 22], [22, 23], [23, 23], [23, 22], [22, 21]
+            ];
+            return day < zodiacDates[month - 1][0] ? zodiacSigns[month - 1] : zodiacSigns[month % 12];
+        }
+        
+        function getLunarYear(year) {
+            const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+            const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+            return `${can[year % 10]} ${chi[year % 12]}`;
+        }
+    </script>
+</body>
+</html>
